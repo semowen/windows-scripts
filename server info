@@ -1,0 +1,15 @@
+Server Information
+
+ipconfig /all | out-file -append -filepath c:\users\dasean\desktop\serverinfo.txt ; Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Format-Table –AutoSize | out-file -append -filepath c:\users\dasean\desktop\serverinfo.txt ; net share | out-file -append -filepath c:\users\dasean\desktop\serverinfo.txt; netstat | out-file -append -filepath c:\users\dasean\desktop\serverinfo.txt; dir c:\users | out-file -append -filepath c:\users\dasean\desktop\serverinfo.txt
+
+ipconfig /all | out-file -append -filepath c:\users\ticadmin\desktop\serverinfo.txt ; Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Format-Table –AutoSize | out-file -append -filepath c:\users\ticadmin\desktop\serverinfo.txt ; net share | out-file -append -filepath c:\users\ticadmin\desktop\serverinfo.txt; netstat | out-file -append -filepath c:\users\ticadmin\desktop\serverinfo.txt; dir c:\users | out-file -append -filepath c:\users\ticadmin\desktop\serverinfo.txt
+
+ipconfig /all | out-file -append -filepath C:\Users\s_smowen\desktop\serverinfo.txt ; Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Format-Table –AutoSize | out-file -append -filepath C:\Users\s_smowen\desktop\serverinfo.txt ; net share | out-file -append -filepath C:\Users\s_smowen\desktop\serverinfo.txt; netstat | out-file -append -filepath C:\Users\s_smowen\desktop\serverinfo.txt; dir c:\users | out-file -append -filepath C:\Users\s_smowen\desktop\serverinfo.txt
+
+
+ipconfig /all | out-file -append -filepath C:\Users\administrator\desktop\serverinfo.txt ; Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Format-Table –AutoSize | out-file -append -filepath C:\Users\administrator\desktop\serverinfo.txt ; net share | out-file -append -filepath C:\Users\administrator\desktop\serverinfo.txt; netstat | out-file -append -filepath C:\Users\administrator\desktop\serverinfo.txt; dir c:\users | out-file -append -filepath C:\Users\administrator\desktop\serverinfo.txt
+
+
+C:\Documents and Settings\p4admin\Desktop
+
+ipconfig /all | out-file -append -filepath C:\Documents and Settings\p4admin\Desktop\serverinfo.txt ; Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Format-Table –AutoSize | out-file -append -filepath C:\Documents and Settings\p4admin\Desktop\serverinfo.txt ; net share | out-file -append -filepath C:\Documents and Settings\p4admin\Desktop\serverinfo.txt; netstat | out-file -append -filepath C:\Documents and Settings\p4admin\Desktop\serverinfo.txt; dir c:\users | out-file -append -filepath C:\Documents and Settings\p4admin\Desktop\serverinfo.txt
