@@ -1,0 +1,34 @@
+New-NetFirewallRule -DisplayName "Targus Listeners" -group "Targus FW Rules" -Direction Inbound -Action Allow -EdgeTraversalPolicy Allow -Protocol TCP -LocalPort 5202-5203,14000-14001
+
+New-NetFirewallRule -DisplayName "Targus FPS Servers" -group "Targus FW Rules" -Direction Inbound -Action Allow -EdgeTraversalPolicy Allow -Protocol TCP -LocalPort 14030,14040-14041,6100,6110
+
+New-NetFirewallRule -DisplayName "Targus Appserv DupCheck" -group "Targus FW Rules" -Direction Inbound -Action Allow -EdgeTraversalPolicy Allow -Protocol TCP -LocalPort 7200
+New-NetFirewallRule -DisplayName "Targus Appserv DupCheck" -group "Targus FW Rules" -enabled True -Direction Outbound -Protocol TCP -RemotePort 22
+
+New-NetFirewallRule -DisplayName "Targus Appserv PathFinder" -group "Targus FW Rules" -Direction Inbound -Action Allow -EdgeTraversalPolicy Allow -Protocol TCP -LocalPort 7007
+New-NetFirewallRule -DisplayName "Targus Appserv PathFinder" -group "Targus FW Rules" -enabled True -Direction Outbound -Protocol TCP -RemotePort 7007
+
+
+New-NetFirewallRule -DisplayName "Targus Appserv Verify2" -group "Targus FW Rules" -Direction Inbound -Action Allow -EdgeTraversalPolicy Allow -Protocol TCP -LocalPort 9845
+New-NetFirewallRule -DisplayName "Targus Appserv Verify2" -group "Targus FW Rules" -enabled True -Direction Outbound -Protocol TCP -RemotePort 9845
+
+New-NetFirewallRule -DisplayName "Targus Update Listener" -group "Targus FW Rules" -Direction Inbound -Action Allow -EdgeTraversalPolicy Allow -Protocol TCP -LocalPort 5491
+
+New-NetFirewallRule -DisplayName "Targus SA Routers TCP" -group "Targus FW Rules" -Direction Inbound -Action Allow -EdgeTraversalPolicy Allow -Protocol TCP -LocalPort 33351-33352,33361-33362
+
+New-NetFirewallRule -DisplayName "Targus SA Routers UDP" -group "Targus FW Rules" -Direction Inbound -Action Allow -EdgeTraversalPolicy Allow -Protocol UDP -LocalPort 33338
+
+New-NetFirewallRule -DisplayName "Targus Active FTP Servers" -group "Targus FW Rules" -Direction Inbound -Action Allow -EdgeTraversalPolicy Allow -Protocol TCP -LocalPort 20-21 -RemoteAddress 10.100.1.38,10.200.1.38,10.100.1.33
+
+New-NetFirewallRule -DisplayName "Targus Deck Service" -group "Targus FW Rules" -Direction Inbound -Action Allow -EdgeTraversalPolicy Allow -Protocol UDP -LocalPort 5430
+
+New-NetFirewallRule -DisplayName "Targus Dart AsyncQuery" -group "Targus FW Rules" -Direction Inbound -Action Allow -EdgeTraversalPolicy Allow -Protocol UDP -LocalPort 8740
+
+New-NetFirewallRule -DisplayName "Varonis Data Security" -group "Targus FW Rules" -Direction Inbound -Action Allow -EdgeTraversalPolicy Allow -Protocol TCP -LocalPort 4972
+
+New-NetFirewallRule -DisplayName "TripWire Agent" -group "Targus FW Rules" -Direction Inbound -Action Allow -EdgeTraversalPolicy Allow -Protocol TCP -LocalPort 9898,8080
+
+New-NetFirewallRule -DisplayName "Avamar Backup" -Direction Inbound -Program "%PROGRAMFILES%\avs\bin\avagent.exe" -Action Allow
+
+
+
