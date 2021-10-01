@@ -1,0 +1,57 @@
+New-NetFirewallRule -DisplayName "SNMP" -group "SNMP" -Direction Inbound -Action Allow -EdgeTraversalPolicy Allow -Protocol UDP -LocalPort 161
+New-NetFirewallRule -DisplayName "SNMP" -group "SNMP" -Direction Outbound -Action Allow -EdgeTraversalPolicy Allow -Protocol UDP -LocalPort 161
+
+
+
+
+ServerManagerCmd.exe -install SNMP-Services
+netsh advfirewall firewall add rule name="SNMP" dir=in action=allow protocol=UDP localport=161
+
+netsh advfirewall firewall add rule name="SNMP" dir=out action=allow protocol=UDP localport=161
+
+
+
+
+####################switch to elevated prompt########################
+param([switch]$Elevated)
+
+function Test-Admin {
+  $currentUser = New-Object Security.Principal.WindowsPrincipal $([Security.Principal.WindowsIdentity]::GetCurrent())
+  $currentUser.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
+}
+
+if ((Test-Admin) -eq $false)  {
+    if ($elevated) 
+    {
+        # tried to elevate, did not work, aborting
+    } 
+    else {
+        Start-Process powershell.exe -Verb RunAs -ArgumentList ('-noprofile -noexit -file "{0}" -elevated' -f ($myinvocation.MyCommand.Definition))
+}
+
+exit
+}
+#############################################################
+'running with full privileges'
+
+#import server manager module
+import-module servermanager
+
+#install snmp features
+If($(Get-WindowsFeature SNMP-Service).Installed -EQ $False) 
+    { Install-WindowsFeature SNMP-Service }
+
+
+    If($(Get-WindowsFeature RSAT-SNMP).Installed -EQ $False) 
+    { Install-WindowsFeature RSAT-SNMP }
+
+    If($(Get-WindowsFeature SNMP-WMI-PROVIDER).Installed -EQ $False) 
+    { Install-WindowsFeature SNMP-WMI-PROVIDER }
+
+    
+
+   #group policy update
+   gpupdate /force
+
+   
+   netsh advfirewall firewall add rule name="SNMP" dir=in action=allow protocol=UDP localport=161
