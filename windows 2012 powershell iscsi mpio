@@ -1,0 +1,63 @@
+$ip1="192.168.112.178"
+$ip2="192.168.113.178"
+
+
+netsh interface ip set address "Slot 7 Port 2" static $ip2 255.255.255.0
+netsh interface ip set address "Slot 8 Port 2" static $ip1 255.255.255.0
+ping 192.168.113.253
+ping 192.168.112.253
+
+
+
+
+get-mpiosetting
+
+
+
+Set-Service -Name msiscsi -StartupType Automatic
+Start-Service -Name msiscsi
+
+Enable-WindowsOptionalFeature –Online –FeatureName MultiPathIO
+
+Enable-MSDSMAutomaticClaim -BusType iscsi
+Set-MSDSMGlobalDefaultLoadBalancePolicy -Policy RR
+
+
+
+New-IscsiTargetPortal –TargetPortalAddress 192.168.112.253
+New-IscsiTargetPortal –TargetPortalAddress 192.168.113.254
+
+
+Get-IscsiTarget | Connect-IscsiTarget -InitiatorPortalAddress $ip1 -IsMultipathEnabled $true -IsPersistent $true -TargetPortalAddress 192.168.112.253
+
+Get-IscsiTarget | Connect-IscsiTarget -InitiatorPortalAddress $ip2 -IsMultipathEnabled $true -IsPersistent $true -TargetPortalAddress 192.168.113.253
+
+Get-IscsiTarget | Connect-IscsiTarget -InitiatorPortalAddress $ip1 -IsMultipathEnabled $true -IsPersistent $true -TargetPortalAddress 192.168.112.254
+
+Get-IscsiTarget | Connect-IscsiTarget -InitiatorPortalAddress $ip2 -IsMultipathEnabled $true -IsPersistent $true -TargetPortalAddress 192.168.113.254
+
+Get-iSCSISession
+Get-iSCSISession | Get-Disk
+diskpart
+list disk
+
+
+select disk 5
+attributes disk clear readonly
+online disk 
+select disk 5
+convert gpt
+create partition primary
+format quick fs=ntfs
+assign letter=O
+
+
+
+select disk 6
+attributes disk clear readonly
+online disk 
+select disk 6
+convert gpt
+create partition primary
+format quick fs=ntfs
+assign letter=O
