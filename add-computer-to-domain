@@ -1,0 +1,44 @@
+connect-viserver vcenter.domain
+
+$vmName = ( Read-Host "Enter VM name" )
+
+#$vm = get-vmguest sdwebapp05
+
+
+$ESXHost = get-vmhost -VM $vmName
+$HostCred = $Host.UI.PromptForCredential("Please enter credentials", "Enter ESX host credentials for $ESXHost", "root", "")
+$GuestCred = $Host.UI.PromptForCredential("Please enter credentials", "Enter Guest credentials for $VM", "administrator", "")
+$domain = ( Read-Host "Enter domain for adding to domain" )
+$domainuser = (Read-Host "Enter domain username")
+#$domainpass = (Read-Host "Enter Domain Password")
+
+#$pass = ConvertTo-SecureString -AsPlainText $domainpass -Force
+$pass = (Get-Credential $domainuser -Message "Please Enter your Domain account password.").GetNetworkCredential().Password
+
+$VM = $vmName
+
+
+
+
+### add computer to domain
+Function Set-Domain ($VM, $HC, $GC, $domain, $domainuser, $pass){
+	$netdom = "netdom join /Domain:$domain $vm /UserD:$domainuser /PasswordD:$pass"
+	Invoke-VMScript -VM $VM -HostCredential $HC -GuestCredential $GC -ScriptType bat $netdom
+ }
+
+ 
+ Set-Domain $VM $HostCred $GuestCred $domain $domainuser $pass
+ 
+ #restart-vmguest $vm
+
+ 
+ 
+ 
+# netdom join /Domain:domain.com alphasd /UserD:admin /PasswordD:passowrd
+ 
+ 
+
+
+
+
+# Add-Computer -DomainName domain.int -Credential domain\admin -Restart -Force
